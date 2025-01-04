@@ -8,8 +8,9 @@ export class Entity<Props> {
     return this._id;
   }
 
-  constructor(props: any, id?: string) {
-    this._id = new UniqueEntityID(id);
+  // leaves the constructor protected to be called only by itself or by child classes
+  protected constructor(props: Props, id?: UniqueEntityID) {
     this.props = props;
+    this._id = id ?? new UniqueEntityID(id);
   }
 }
