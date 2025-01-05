@@ -1,15 +1,14 @@
 {
   "extends": [
-    "@rocketseat/eslint-config/node",
-    "plugin:vitest-globals/recommended"
+    "plugin:vitest-globals/recommended",
+    "@rocketseat/eslint-config/node"
   ],
   "rules": {
     "no-useless-constructor": "off",
     "prettier/prettier": [
       "error",
       {
-        "singleQuote": false,
-        "trailingComma": "all"
+        "singleQuote": false
       }
     ]
   },
