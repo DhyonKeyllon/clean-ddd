@@ -6,7 +6,7 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository;
 let sut: DeleteQuestionCommentUseCase; // system under test
 
-describe("Delete QuestionComment", () => {
+describe("Delete Question Comment", () => {
   beforeEach(() => {
     inMemoryQuestionCommentsRepository =
       new InMemoryQuestionCommentsRepository();
