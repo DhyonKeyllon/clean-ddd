@@ -16,10 +16,10 @@ export class DeleteQuestionUseCase {
   }: DeleteQuestionUseCaseRequest): Promise<DeleteQuestionUseCaseResponse> {
     const question = await this.questionsRepository.findById(questionId);
 
-    if (!question) throw new Error("Question not found");
+    if (!question) throw new Error("Question not found.");
 
     if (authorId !== question.authorId.toString())
-      throw new Error("Not allowed");
+      throw new Error("Not allowed.");
 
     await this.questionsRepository.delete(question);
 
