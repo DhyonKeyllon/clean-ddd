@@ -12,7 +12,7 @@ describe("List questions", async () => {
     sut = new ListRecentQuestionsUseCase(inMemoryQuestionsRepository);
   });
 
-  test("should be able to list a questions ", async () => {
+  test("should be able to list a recent questions ", async () => {
     await inMemoryQuestionsRepository.create(
       makeQuestion({ createdAt: new Date(2022, 5, 11) }),
     );
