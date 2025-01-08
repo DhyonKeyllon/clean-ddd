@@ -25,12 +25,12 @@ describe("List question answers", async () => {
       makeAnswer({ questionId: question.id }),
     );
 
-    const { answers } = await sut.execute({
+    const result = await sut.execute({
       page: 1,
       id: question.id.toString(),
     });
 
-    expect(answers).toHaveLength(3);
+    expect(result.value?.answers).toHaveLength(3);
   });
 
   test("should be able to list a paginated question answers", async () => {
@@ -44,11 +44,11 @@ describe("List question answers", async () => {
       );
     }
 
-    const { answers } = await sut.execute({
+    const result = await sut.execute({
       page: 2,
       id: question.id.toString(),
     });
 
-    expect(answers).toHaveLength(2);
+    expect(result.value?.answers).toHaveLength(2);
   });
 });

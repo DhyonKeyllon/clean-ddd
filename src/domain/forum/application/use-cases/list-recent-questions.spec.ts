@@ -23,11 +23,11 @@ describe("List questions", async () => {
       makeQuestion({ createdAt: new Date(2024, 2, 9) }),
     );
 
-    const { questions } = await sut.execute({
+    const result = await sut.execute({
       page: 1,
     });
 
-    expect(questions).toEqual([
+    expect(result.value?.questions).toEqual([
       expect.objectContaining({ createdAt: new Date(2025, 0, 19) }),
       expect.objectContaining({ createdAt: new Date(2024, 2, 9) }),
       expect.objectContaining({ createdAt: new Date(2022, 5, 11) }),
@@ -39,10 +39,10 @@ describe("List questions", async () => {
       await inMemoryQuestionsRepository.create(makeQuestion());
     }
 
-    const { questions } = await sut.execute({
+    const result = await sut.execute({
       page: 2,
     });
 
-    expect(questions).toHaveLength(2);
+    expect(result.value?.questions).toHaveLength(2);
   });
 });

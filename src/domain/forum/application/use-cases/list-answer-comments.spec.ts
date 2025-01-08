@@ -25,12 +25,13 @@ describe("List answer comments", async () => {
       makeAnswerComment({ answerId: answer.id }),
     );
 
-    const { answerComments } = await sut.execute({
+    const response = await sut.execute({
       page: 1,
       id: answer.id.toString(),
     });
 
-    expect(answerComments).toHaveLength(3);
+    expect(response.isRight()).toBe(true);
+    expect(response.value?.answerComments).toHaveLength(3);
   });
 
   test("should be able to list a paginated answer answers", async () => {
@@ -44,11 +45,12 @@ describe("List answer comments", async () => {
       );
     }
 
-    const { answerComments } = await sut.execute({
+    const response = await sut.execute({
       page: 2,
       id: answer.id.toString(),
     });
 
-    expect(answerComments).toHaveLength(2);
+    expect(response.isRight()).toBe(true);
+    expect(response.value?.answerComments).toHaveLength(2);
   });
 });

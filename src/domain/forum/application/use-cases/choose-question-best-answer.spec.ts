@@ -4,6 +4,7 @@ import { makeAnswer } from "test/factories/make-answer";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
 import { makeQuestion } from "test/factories/make-question";
+import { NotAllowedError } from "./errors/not-allowed-error";
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
@@ -29,11 +30,12 @@ describe("Choose Question Best Answer", () => {
     await inMemoryQuestionsRepository.create(question);
     await inMemoryAnswersRepository.create(answer);
 
-    await sut.execute({
+    const result = await sut.execute({
       answerId: answer.id.toString(),
       authorId: question.authorId.toString(),
     });
 
+    expect(result.isRight()).toBe(true);
     expect(inMemoryQuestionsRepository.items[0].bestAnswerId).toEqual(
       answer.id,
     );
@@ -51,12 +53,12 @@ describe("Choose Question Best Answer", () => {
     await inMemoryQuestionsRepository.create(question);
     await inMemoryAnswersRepository.create(answer);
 
-    await expect(
-      async () =>
-        await sut.execute({
-          authorId: "author-expected",
-          answerId: answer.id.toString(),
-        }),
-    ).rejects.toBeInstanceOf(Error);
+    const result = await sut.execute({
+      authorId: "author-expected",
+      answerId: answer.id.toString(),
+    });
+
+    expect(result.isLeft()).toBe(true);
+    expect(result.value).toBeInstanceOf(NotAllowedError);
   });
 });

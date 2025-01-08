@@ -11,18 +11,21 @@ describe("Create Question", () => {
   });
 
   test("should be able to create an question", async () => {
-    const { question } = await sut.execute({
+    const result = await sut.execute({
       authorId: "1",
       title: "Título da Nova pergunta",
       content: "Conteúdo da nova pergunta",
     });
 
-    expect(question.id).toBeTruthy();
+    expect(result.isRight()).toBe(true);
 
-    expect(inMemoryQuestionsRepository.items[0].id).toEqual(question.id);
-
-    expect(question.title).toEqual("Título da Nova pergunta");
-    expect(question.content).toEqual("Conteúdo da nova pergunta");
-    expect(question.slug.value).toEqual("titulo-da-nova-pergunta");
+    expect(inMemoryQuestionsRepository.items[0].id).toEqual(
+      result.value?.question.id,
+    );
+    expect(result.value?.question.title).toEqual("Título da Nova pergunta");
+    expect(result.value?.question.content).toEqual("Conteúdo da nova pergunta");
+    expect(result.value?.question.slug.value).toEqual(
+      "titulo-da-nova-pergunta",
+    );
   });
 });

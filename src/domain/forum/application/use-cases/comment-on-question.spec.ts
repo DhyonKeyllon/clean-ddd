@@ -24,12 +24,13 @@ describe("Choose Question Best Answer", () => {
 
     await inMemoryQuestionsRepository.create(question);
 
-    await sut.execute({
+    const result = await sut.execute({
       questionId: question.id.toString(),
       authorId: "author-1",
       content: "Content text example",
     });
 
+    expect(result.isRight()).toBe(true);
     expect(inMemoryQuestionCommentsRepository.items[0].content).toEqual(
       "Content text example",
     );
