@@ -15,12 +15,17 @@ describe("Create Question", () => {
       authorId: "1",
       title: "Título da Nova pergunta",
       content: "Conteúdo da nova pergunta",
+      attachmentsIds: ["1", "2"],
     });
 
     expect(result.isRight()).toBe(true);
 
     expect(inMemoryQuestionsRepository.items[0].id).toEqual(
       result.value?.question.id,
+    );
+    expect(inMemoryQuestionsRepository.items[0].attachments).toHaveLength(2);
+    expect(inMemoryQuestionsRepository.items[0].attachments).toEqual(
+      result.value?.question.attachments,
     );
     expect(result.value?.question.title).toEqual("Título da Nova pergunta");
     expect(result.value?.question.content).toEqual("Conteúdo da nova pergunta");
