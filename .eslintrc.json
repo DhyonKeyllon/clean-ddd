@@ -5,6 +5,7 @@
   ],
   "rules": {
     "no-useless-constructor": "off",
+    "no-new": "off",
     "prettier/prettier": [
       "error",
       {
